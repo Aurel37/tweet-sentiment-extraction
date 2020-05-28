@@ -8,3 +8,7 @@ train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 #vectorize the text
 # /!\ the sets text and selected_text are not vectorized on the same word base yet
 text_train = vectorize(train[0])
+
+histo = np.zeros(text_train.shape)
+for l in text_train:
+    histo += l
