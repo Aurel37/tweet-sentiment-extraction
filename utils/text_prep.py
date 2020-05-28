@@ -28,4 +28,4 @@ def vectorize(text_tab):
     vect = CountVectorizer()
     vect.fit(process)
     res = vect.transform(process)
-    return res.toarray()
+    return res.toarray(), vect.get_feature_names()
