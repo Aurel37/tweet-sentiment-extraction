@@ -8,6 +8,7 @@ def open_csv(path, *col):
     path : path of the csv document
     col : columns that may be interesting"""
     data = pd.read_csv(path)
+    data['sentiment'] = data['sentiment'].map({'neutral':0, 'positive':1, 'negative':2})
     res = []
     for i in col:
         res.append(data[i].to_numpy())
