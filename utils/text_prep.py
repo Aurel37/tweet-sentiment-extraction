@@ -16,7 +16,7 @@ def clean(tweet):
     return ' '.join([word for word in clean_p if word.lower() not in stopwords.words('english')])
 
 
-def vectorize(text_tab):
+def vectorize(text_tab, feature_names=None):
     """return a numpy digit number array
     text_tab : numpy array of strings
     """
@@ -26,6 +26,9 @@ def vectorize(text_tab):
             process.append(clean(tweet))
     process = np.array(process)
     vect = CountVectorizer()
-    vect.fit(process)
+    if feature_names is None:
+        vect.fit(process)
+    else:
+        vect.vocabulary = feature_names
     res = vect.transform(process)
     return res.toarray(), vect.get_feature_names()

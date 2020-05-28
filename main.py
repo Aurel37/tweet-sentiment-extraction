@@ -7,6 +7,7 @@ from utils.data_loader import open_csv
 train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
 #vectorize the text
+
 # /!\ the sets text and selected_text are not vectorized on the same word base yet
 text_train, translation = vectorize(train[0])
 
@@ -52,3 +53,6 @@ def histo_repartition(text, words, N):
 
 N = 10
 histo_repartition(text_train, translation, 20)
+
+text_train, feature_names  = vectorize(train[0][:10])
+selected_text_train, d = vectorize(train[1][:10], feature_names)
