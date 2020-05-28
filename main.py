@@ -6,5 +6,6 @@ from utils.data_loader import open_csv
 train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
 #vectorize the text
-# /!\ the sets text and selected_text are not vectorized on the same word base yet
-text_train = vectorize(train[0])
+
+text_train, feature_names  = vectorize(train[0][:10])
+selected_text_train, d = vectorize(train[1][:10], feature_names)
