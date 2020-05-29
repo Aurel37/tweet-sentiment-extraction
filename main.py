@@ -1,16 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from utils.metric import jaccard
-from utils.text_prep import vectorize, clean
+from utils.text_prep import vectorize
 from utils.data_loader import open_csv
-from sklearn.feature_extraction.text import HashingVectorizer, CountVectorizer
 
 train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
+selected = train[1]
+text, _ = vectorize(train[0])
+selected_text_train, d = vectorize(train[1])
+
 #vectorize the text
-
-text_train, translation = vectorize(train[0])
-
 def histo_repartition(text, words, N):
     positive = np.zeros(text.shape[1])
     negative = np.zeros(text.shape[1])
@@ -54,5 +54,39 @@ def histo_repartition(text, words, N):
 #N = 10
 #histo_repartition(text_train, translation, 20)
 
-selected_text_train, d = vectorize(train[1])
+
+
+
+def histo_size(texts, labels):
+    
+    sizes_positive =  []
+    sizes_negative =  []
+    sizes_neutral =  []
+    for i in range(len(texts)):
+        if labels[i] == 0:
+            #print(i)
+            sizes_neutral.append(len(texts[i]))
+        elif labels[i] == 1:
+            
+            sizes_positive.append(len(texts[i]))
+        else:
+            sizes_negative.append(len(texts[i]))
+    n, bins, patches = plt.hist(x=sizes_neutral, bins=max(sizes_neutral)+1, color='#0504aa',
+                                alpha=0.7, rwidth=0.8)
+    plt.title("Neutral size")
+    plt.show()
+    n, bins, patches = plt.hist(x=sizes_positive, bins=max(sizes_positive)+1, color='#0504aa',
+                                alpha=0.7, rwidth=0.8)
+    plt.title("Positive size")
+    plt.show()
+    n, bins, patches = plt.hist(x=sizes_negative, bins=max(sizes_negative)+1, color='#0504aa',
+                                alpha=0.7, rwidth=0.8)
+    plt.title("Negative size")
+    plt.show()
+
+#print(train[1][314])
+#print(len(train[1]))
+#histo_size(train[1], train[-1])
+#histo_repartition(text_train, translation, 20)
+
 
