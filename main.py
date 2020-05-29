@@ -8,6 +8,11 @@ train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
 selected = train[1]
 
+text, _ = vectorize(train[0])
+selected_text_train, d = vectorize(train[1])
+print(selected_text_train.shape)
+
+
 #vectorize the text
 def histo_repartition(text, words, N):
     positive = np.zeros(text.shape[1])
