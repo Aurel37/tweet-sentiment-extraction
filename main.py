@@ -7,8 +7,6 @@ from utils.data_loader import open_csv
 train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
 selected = train[1]
-text, _ = vectorize(train[0])
-selected_text_train, d = vectorize(train[1])
 
 #vectorize the text
 def histo_repartition(text, words, N):
@@ -27,32 +25,33 @@ def histo_repartition(text, words, N):
     values = [positive[positive_index[i]] for i in range(N)]
     popular_words = [words[positive_index[i]] for i in range(N)]
     x = np.arange(N)
-    plt.xticks(x, popular_words)
+    #plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Positive")
     plt.show()
+    print(popular_words)
 
     negative_index = np.argsort(negative)
     negative_index = np.flipud(negative_index)
     values = [negative[negative_index[i]] for i in range(N)]
     popular_words = [words[negative_index[i]] for i in range(N)]
-    plt.xticks(x, popular_words)
+    #plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Negative")
     plt.show()
-
+    print(popular_words)
 
     neutral_index = np.argsort(neutral)
     neutral_index = np.flipud(neutral_index)
     values = [neutral[neutral_index[i]] for i in range(N)]
     popular_words = [words[neutral_index[i]] for i in range(N)]
-    plt.xticks(x, popular_words)
+    #plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Neutral")
     plt.show()
+    print(popular_words)
 
-#N = 10
-#histo_repartition(text_train, translation, 20)
+
 
 
 
@@ -63,6 +62,8 @@ def histo_size(texts, labels):
     sizes_negative =  []
     sizes_neutral =  []
     for i in range(len(texts)):
+        if type(texts[i]) == float:
+            texts[i] = ''
         if labels[i] == 0:
             #print(i)
             sizes_neutral.append(len(texts[i]))
@@ -71,6 +72,7 @@ def histo_size(texts, labels):
             sizes_positive.append(len(texts[i]))
         else:
             sizes_negative.append(len(texts[i]))
+    print(sizes_neutral[: 20])
     n, bins, patches = plt.hist(x=sizes_neutral, bins=max(sizes_neutral)+1, color='#0504aa',
                                 alpha=0.7, rwidth=0.8)
     plt.title("Neutral size")
@@ -84,11 +86,13 @@ def histo_size(texts, labels):
     plt.title("Negative size")
     plt.show()
 
-#print(train[1][314])
+text_train, feature_names  = vectorize(train[0])
+N = 40
+histo_repartition(text_train, feature_names, N)
+
 #print(len(train[1]))
-#histo_size(train[1], train[-1])
+histo_size(train[1], train[-1])
 #histo_repartition(text_train, translation, 20)
 
 
-#text_train, feature_names  = vectorize(train[0][:10])
 #selected_text_train, d = vectorize(train[1][:10], feature_names)
