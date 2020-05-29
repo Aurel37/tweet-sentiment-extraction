@@ -23,7 +23,7 @@ def histo_repartition(text, words, N):
         else:
             negative += text[l]
     positive_index = np.argsort(positive)
-    positive_index = np.flipud(positive_index) 
+    positive_index = np.flipud(positive_index)
     values = [positive[positive_index[i]] for i in range(N)]
     popular_words = [words[positive_index[i]] for i in range(N)]
     x = np.arange(N)
@@ -31,28 +31,28 @@ def histo_repartition(text, words, N):
     plt.plot(x, values)
     plt.title("Positive")
     plt.show()
-                     
+
     negative_index = np.argsort(negative)
-    negative_index = np.flipud(negative_index) 
+    negative_index = np.flipud(negative_index)
     values = [negative[negative_index[i]] for i in range(N)]
     popular_words = [words[negative_index[i]] for i in range(N)]
-    plt.xticks(x, popular_words )
+    plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Negative")
     plt.show()
 
-                     
+
     neutral_index = np.argsort(neutral)
-    neutral_index = np.flipud(neutral_index) 
+    neutral_index = np.flipud(neutral_index)
     values = [neutral[neutral_index[i]] for i in range(N)]
     popular_words = [words[neutral_index[i]] for i in range(N)]
-    plt.xticks(x, popular_words )
+    plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Neutral")
     plt.show()
 
-N = 10
-histo_repartition(text_train, translation, 20)
+#N = 10
+#histo_repartition(text_train, translation, 20)
 
-selected_text_train, d = vectorize(train[1][:10], feature_names)
+selected_text_train, d = vectorize(train[1])
 
