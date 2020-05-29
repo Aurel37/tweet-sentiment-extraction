@@ -82,8 +82,8 @@ def histo_size(texts, labels):
 
 print(train[1][314])
 print(len(train[1]))
-#histo_size(train[1], train[-1])
-#histo_repartition(text_train, translation, 20)
+histo_size(train[1], train[-1])
+histo_repartition(text_train, translation, 20)
 
-#text_train, feature_names  = vectorize(train[0][:10])
-#selected_text_train, d = vectorize(train[1][:10], feature_names)
+text_train, feature_names  = vectorize(train[0][:10])
+selected_text_train, d = vectorize(train[1][:10], feature_names)
