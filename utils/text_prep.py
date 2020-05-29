@@ -10,10 +10,14 @@ import string
 def clean(tweet):
     """return a clean string
     tweet : string"""
-    clean_p = [word for word in tweet if word not in string.punctuation]
-    clean_p = ''.join(clean_p)
-    clean_p = clean_p.split(' ')
-    return ' '.join([word for word in clean_p if word.lower() not in stopwords.words('english')])
+    if type(tweet) == str:
+        clean_p = [word for word in tweet if word not in string.punctuation]
+        clean_p = ''.join(clean_p)
+        clean_p = clean_p.split(' ')
+        return ' '.join([word for word in clean_p if word.lower() not in stopwords.words('english')])
+    else:
+        print(tweet)
+        return ' '
 
 
 def vectorize(text_tab, feature_names=None):
