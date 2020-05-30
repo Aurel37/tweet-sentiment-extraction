@@ -10,6 +10,7 @@ train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
 #vectorize the text
 
+
 def vectorize_pca(document, column, lb, dimpca):
     text = get_x_not_by_label('train.csv', 'test', 'neutral')
     test, d = vectorize(text)
@@ -32,8 +33,9 @@ def vectorize_pca(document, column, lb, dimpca):
 
 #riches = difference(d, pauvres)
 
+
 #text_test = np.array(open_csv('test.csv', 'text', 'sentiment'))
-#vect_test, d = vectorize(text_test[0], d)
+#vect_test, d = vectorize(text_test[0], riches)
 #print("vectorialisation finie")
 #res = build(vect_test, d)
 #print(res[36])
