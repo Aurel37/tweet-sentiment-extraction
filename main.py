@@ -61,8 +61,7 @@ def histo_repartition(text, words, N):
 
 
 
-def histo_size(texts, labels):
-    
+def histo_size(texts, labels): 
     sizes_positive =  []
     sizes_negative =  []
     sizes_neutral =  []
@@ -73,7 +72,7 @@ def histo_size(texts, labels):
             #print(i)
             sizes_neutral.append(len(texts[i]))
         elif labels[i] == 1:
-            
+ 
             sizes_positive.append(len(texts[i]))
         else:
             sizes_negative.append(len(texts[i]))
