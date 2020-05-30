@@ -5,6 +5,12 @@ import csv
 from utils.text_prep import vectorize, clean
 
 
+def make_histo(histo, title, col):
+    n, bins, patches = plt.hist(x=histo, bins=40, color=col,
+                                alpha=0.7, rwidth=0.8, range = (0, 100))
+    plt.title(title)
+    plt.show()
+
 def histo_repartition(text, words, N):
     """
     Calcul l'histogramme des N plus influents mots en fonction de leur label.
@@ -143,7 +149,7 @@ def ecrire_resultat(begin, final, label):
         elif len(final[i]) > 0:
             content.append([begin[i],  final[i], label[i]])
         else:
-            content.append([begin[i],  begin[i], label[i]])
+            content.append([begin[i],  "ELLE EST BONNE SA MERE", label[i]])
     print(type(content))
     with open('result.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
@@ -172,7 +178,7 @@ def peu_repeter( text, dico, M):
     for j in range(len(dico)):
         if histo[j] <= M:
             pauvre.append(dico[j])
-    return pauvre
+    return pauvre, histo
 
 def difference(a, b):
     """

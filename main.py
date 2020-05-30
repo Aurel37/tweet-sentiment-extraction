@@ -15,14 +15,16 @@ selected_text = get_x_not_by_label('train.csv', "text", "neutral")
 test, d = vectorize(selected_text)
 print(len(d))
 
-pauvres = peu_repeter(test, d, 2)
+pauvres, histo = peu_repeter(test, d, 5)
+print(histo[0:100])
+make_histo(histo, "Histogramme des repetitions des mots de notre ensemble", "blue")
 print(len(pauvres))
 
 riches = difference(d, pauvres)
 
 
 #text_test = np.array(open_csv('test.csv', 'text', 'sentiment'))
-#vect_test, d = vectorize(text_test[0], d)
+#vect_test, d = vectorize(text_test[0], riches)
 #print("vectorialisation finie")
 #res = build(vect_test, d)
 #print(res[36])
