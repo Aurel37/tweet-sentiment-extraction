@@ -13,3 +13,20 @@ def open_csv(path, *col):
     for i in col:
         res.append(data[i].to_numpy())
     return res
+
+
+def get_x_by_label(path, x, label):
+
+    data = pd.read_csv(path)
+    data= data.loc[data['sentiment'] == label, :]
+    text = data[x]
+    text = text.to_numpy()
+    return text
+
+def get_x_not_by_label(path, x, label):
+
+    data = pd.read_csv(path)
+    data= data.loc[data['sentiment'] != label, :]
+    text = data[x]
+    text = text.to_numpy()
+    return text
