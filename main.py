@@ -1,102 +1,45 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from utils.metric import jaccard
-from utils.text_prep import vectorize
-from utils.data_loader import open_csv
+import csv
+from utils.text_prep import vectorize, clean
+from utils.data_loader import open_csv, get_x_by_label, get_x_not_by_label
+from utils.manipulation import *
 
 train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
-selected = train[1]
-
-text, _ = vectorize(train[0])
-selected_text_train, d = vectorize(train[1])
-print(selected_text_train.shape)
-
-
 #vectorize the text
-def histo_repartition(text, words, N):
-    positive = np.zeros(text.shape[1])
-    negative = np.zeros(text.shape[1])
-    neutral = np.zeros(text.shape[1])
-    for l in range(len(text)):
-        if train[-1][l] == 0:
-            neutral += text[l]
-        elif train[-1][l] == 1:
-            positive += text[l]
-        else:
-            negative += text[l]
-    positive_index = np.argsort(positive)
-    positive_index = np.flipud(positive_index)
-    values = [positive[positive_index[i]] for i in range(N)]
-    popular_words = [words[positive_index[i]] for i in range(N)]
-    x = np.arange(N)
-    #plt.xticks(x, popular_words)
-    plt.plot(x, values)
-    plt.title("Positive")
-    plt.show()
-    print(popular_words)
 
-    negative_index = np.argsort(negative)
-    negative_index = np.flipud(negative_index)
-    values = [negative[negative_index[i]] for i in range(N)]
-    popular_words = [words[negative_index[i]] for i in range(N)]
-    #plt.xticks(x, popular_words)
-    plt.plot(x, values)
-    plt.title("Negative")
-    plt.show()
-    print(popular_words)
-
-    neutral_index = np.argsort(neutral)
-    neutral_index = np.flipud(neutral_index)
-    values = [neutral[neutral_index[i]] for i in range(N)]
-    popular_words = [words[neutral_index[i]] for i in range(N)]
-    #plt.xticks(x, popular_words)
-    plt.plot(x, values)
-    plt.title("Neutral")
-    plt.show()
-    print(popular_words)
+def vectorize_pca(document, column, lb, dimpca):
+    text = get_x_not_by_label('train.csv', 'test', 'neutral')
+    test, d = vectorize(text)
+    pauvres, histo = peu_repeter(test, d, 5)
+    riches = difference(d, pauvres)
+    text_array_clean, dico = vectorize(text, riches)
+    text_array_st = standardize(text_array_clean)
+    text_array_pca = PCA(text_array_st, dimpca)
+    return text_array_pca
 
 
+#selected_text = get_x_not_by_label('train.csv', "text", "neutral")
+#test, d = vectorize(selected_text)
+#print(len(d))
 
+#pauvres, histo = peu_repeter(test, d, 5)
+#print(histo[0:100])
+#make_histo(histo, "Histogramme des repetitions des mots de notre ensemble", "blue")
+#print(len(pauvres))
 
+#riches = difference(d, pauvres)
 
+#text_test = np.array(open_csv('test.csv', 'text', 'sentiment'))
+#vect_test, d = vectorize(text_test[0], d)
+#print("vectorialisation finie")
+#res = build(vect_test, d)
+#print(res[36])
 
-def histo_size(texts, labels): 
-    sizes_positive =  []
-    sizes_negative =  []
-    sizes_neutral =  []
-    for i in range(len(texts)):
-        if type(texts[i]) == float:
-            texts[i] = ''
-        if labels[i] == 0:
-            #print(i)
-            sizes_neutral.append(len(texts[i]))
-        elif labels[i] == 1:
- 
-            sizes_positive.append(len(texts[i]))
-        else:
-            sizes_negative.append(len(texts[i]))
-    print(sizes_neutral[: 20])
-    n, bins, patches = plt.hist(x=sizes_neutral, bins=max(sizes_neutral)+1, color='#0504aa',
-                                alpha=0.7, rwidth=0.8)
-    plt.title("Neutral size")
-    plt.show()
-    n, bins, patches = plt.hist(x=sizes_positive, bins=max(sizes_positive)+1, color='#0504aa',
-                                alpha=0.7, rwidth=0.8)
-    plt.title("Positive size")
-    plt.show()
-    n, bins, patches = plt.hist(x=sizes_negative, bins=max(sizes_negative)+1, color='#0504aa',
-                                alpha=0.7, rwidth=0.8)
-    plt.title("Negative size")
-    plt.show()
-
-text_train, feature_names  = vectorize(train[0])
-N = 40
-histo_repartition(text_train, feature_names, N)
-
-#print(len(train[1]))
-histo_size(train[1], train[-1])
-#histo_repartition(text_train, translation, 20)
-
-
-#selected_text_train, d = vectorize(train[1][:10], feature_names)
+#begin = slices(text_test[0])
+#print(begin[36])
+#print("slice")
+#final = arange_string(res, begin)
+#content = ecrire_resultat(text_test[0], final, text_test[-1])

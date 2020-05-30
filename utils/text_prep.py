@@ -16,7 +16,6 @@ def clean(tweet):
         clean_p = clean_p.split(' ')
         return ' '.join([word for word in clean_p if word.lower() not in stopwords.words('english') +['im', 'day','get','go', 'dont', 'today', 'going', 'got', 'work', 'one', 'cant', 'time', 'know', 'back', 'really', 'see', 'mothers', 'want', 'home', 'night', 'still', 'new', 'think', 'much', 'well', 'thanks', 'last', 'morning', 'need', 'tomorrow'] ])
     else:
-        print(tweet)
         return ' '
 
 
@@ -35,4 +34,5 @@ def vectorize(text_tab, feature_names=None):
     else:
         vect.vocabulary = feature_names
     res = vect.transform(process)
+    print(res)
     return res.toarray(), vect.get_feature_names()
