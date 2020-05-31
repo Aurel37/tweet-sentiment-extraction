@@ -34,5 +34,4 @@ def vectorize(text_tab, feature_names=None):
     else:
         vect.vocabulary = feature_names
     res = vect.transform(process)
-    print(res)
     return res.toarray(), vect.get_feature_names()

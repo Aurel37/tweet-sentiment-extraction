@@ -1,17 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from utils.metric import jaccard
 import csv
-from utils.text_prep import vectorize, clean
 
 
-def make_histo(histo, title, col):
+def make_histo(histo, title, col, xlabel, ylabel):
     n, bins, patches = plt.hist(x=histo, bins=40, color=col,
-                                alpha=0.7, rwidth=0.8, range = (0, 100))
+                                alpha=0.7, rwidth=0.8, range=(0, 100))
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.title(title)
     plt.show()
 
-def histo_repartition(text, words, N):
+def histo_repartition(text, words, N, labels):
     """
     Calcul l'histogramme des N plus influents mots en fonction de leur label.
     """
@@ -19,9 +19,9 @@ def histo_repartition(text, words, N):
     negative = np.zeros(text.shape[1])
     neutral = np.zeros(text.shape[1])
     for l in range(len(text)):
-        if train[-1][l] == 0:
+        if labels[l] == 0:
             neutral += text[l]
-        elif train[-1][l] == 1:
+        elif labels[l] == 1:
             positive += text[l]
         else:
             negative += text[l]
@@ -30,7 +30,7 @@ def histo_repartition(text, words, N):
     values = [positive[positive_index[i]] for i in range(N)]
     popular_words = [words[positive_index[i]] for i in range(N)]
     x = np.arange(N)
-    #plt.xticks(x, popular_words)
+    plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Positive")
     plt.show()
@@ -40,7 +40,7 @@ def histo_repartition(text, words, N):
     negative_index = np.flipud(negative_index)
     values = [negative[negative_index[i]] for i in range(N)]
     popular_words = [words[negative_index[i]] for i in range(N)]
-    #plt.xticks(x, popular_words)
+    plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Negative")
     plt.show()
@@ -50,7 +50,7 @@ def histo_repartition(text, words, N):
     neutral_index = np.flipud(neutral_index)
     values = [neutral[neutral_index[i]] for i in range(N)]
     popular_words = [words[neutral_index[i]] for i in range(N)]
-    #plt.xticks(x, popular_words)
+    plt.xticks(x, popular_words)
     plt.plot(x, values)
     plt.title("Neutral")
     plt.show()
