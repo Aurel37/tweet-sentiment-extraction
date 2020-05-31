@@ -187,7 +187,4 @@ def simple_selection(chaine, original_class, nb_parties):
         if classe == original_class:
             resultat += parties[k]
     return resultat
-    
-    
-
 
