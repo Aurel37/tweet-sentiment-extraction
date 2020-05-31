@@ -38,8 +38,6 @@ tweets_classes = np.array((neutral_tweets, positive_tweets, negative_tweets))
 n = len(tweets_classes[0]) + len(tweets_classes[1]) + len(tweets_classes[2])
 
 def jaccard(str1, str2): 
-    if str1 == str2:
-        return float(n)
     a = set(str1.lower().split()) 
     b = set(str2.lower().split())
     c = a.intersection(b)
@@ -53,11 +51,8 @@ def jaccard_lettres(str1, str2):
     for i in range(len(str2)):
         l2.append(str2[i])
     a = set(l1)
-    # print(a)
     b = set(l2)
-    # print(b)
     c = a.intersection(b)
-    # print(c)
     return float(len(c)) / (len(a) + len(b) - len(c))
 
 def KNN_word(chaine):
@@ -185,6 +180,6 @@ def simple_selection(chaine, original_class, nb_parties):
         parties[k] = parties[k][:-1]
         classe = KNN(parties[k])
         if classe == original_class:
-            resultat += parties[k]
-    return resultat
+            resultat += parties[k]+" "
+    return resultat[:-1]
 
