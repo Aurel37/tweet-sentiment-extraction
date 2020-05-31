@@ -32,28 +32,28 @@ def treatment(positives, negatives):
     final_list.append(negatives_treated)
     return final_array
     
-test = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
+test = open_csv('test.csv', 'text', 'sentiment')
 tweets = test[0]
-labels = test[2]
-data = np.array((train, labels))
+labels = test[1]
+data = np.array((tweets, labels))
 
-neutral_tweets = [] # neutral tweets
-positive_tweets = [] # positive tweets
-negative_tweets = [] # negative tweets
+tweets_neutral = [] # neutral tweets
+tweets_positive = [] # positive tweets
+tweets_negative = [] # negative tweets
 
 for i in range(len(tweets)):
     if labels[i]==0:
-        neutral_tweets.append(tweets[i])
+        tweets_neutral.append(tweets[i])
     elif labels[i]==1:
-        positive_tweets.append(tweets[i])
+        tweets_positive.append(tweets[i])
     else:
-        negative_tweets.append(tweets[i])
+        tweets_negative.append(tweets[i])
         
-tweets_classes = np.array((neutral_tweets, positive_tweets, negative_tweets))
+tweets_classes = np.array((tweets_neutral, tweets_positive, tweets_negative))
 n = len(tweets_classes[0]) + len(tweets_classes[1]) + len(tweets_classes[2])
 
 # Treament of tweets : 
-# treated_list = treatment(positive_tweets, negative_tweets)
+# treated_list = treatment(tweets_positive, tweets_negative)
 
 """
 selected_text = get_x_not_by_label('train.csv', "text", "neutral")

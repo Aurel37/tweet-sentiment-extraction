@@ -16,7 +16,7 @@ from utils.text_prep import vectorize, clean
 train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 tweets = train[0]
 labels = train[2]
-data = np.array((train, labels))
+data = np.array((tweets, labels))
 
 tweets_0 = [] # neutral tweets
 tweets_1 = [] # positive tweets
