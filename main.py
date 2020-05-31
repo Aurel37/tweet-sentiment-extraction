@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from utils.metric import jaccard
+from scipy.sparse import csr_matrix
 import csv
 from utils.text_prep import vectorize, clean
 from utils.data_loader import open_csv, get_x_by_label, get_x_not_by_label
@@ -42,7 +43,19 @@ w, b, L = SAG.fit(Xtrain, Ytrain,epochs=n)
 
 """
 
+text_train = get_x_not_by_label('train.csv', "text", "neutral")
+text, d = vectorize(text_train)
+print(len(text)*len(d))
+sparse_text = csr_matrix(text)
+nb_coef = 0
+for i in range(sparse_text.shape[0]):
+    nb_coef += sparse_text[i].shape[0]
 
+print(sparse_text[0])
+print(sparse_text[0].shape)
+
+
+"""
 
 # treats the lists of positive and negatives tweets 
 def treatment(positives, negatives):
@@ -79,6 +92,10 @@ n = len(tweets_classes[0]) + len(tweets_classes[1]) + len(tweets_classes[2])
 
 # Treament of tweets : 
 # treated_list = treatment(positive_tweets, negative_tweets)
+
+
+"""
+
 
 """
 Algo naîf de construction de solution:
