@@ -46,9 +46,6 @@ def classification(document, dimpca, x_col, lb_col):
 def sparse():
     text_train = get_x_not_by_label('train.csv', "text", "neutral")
     text, d = vectorize(text_train)
-    print(len(d))
-    print(len(text))
-    print(len(text)*len(d))
     sparse_text = csr_matrix(text)
     print(sparse_text.getnnz())
 
