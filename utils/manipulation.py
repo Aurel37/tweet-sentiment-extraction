@@ -1,9 +1,14 @@
+from __future__ import absolute_import
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
+from utils.text_prep import clean
 
 
 def make_histo(histo, title, col, xlabel, ylabel):
+    """
+    Dessine l'histogramme associé aux valeurs histo
+    """
     n, bins, patches = plt.hist(x=histo, bins=40, color=col,
                                 alpha=0.7, rwidth=0.8, range=(0, 100))
     plt.xlabel(xlabel)
@@ -147,7 +152,7 @@ def ecrire_resultat(begin, final, label):
         elif len(final[i]) > 0:
             content.append([begin[i],  final[i], label[i]])
         else:
-            content.append([begin[i],  "ELLE EST BONNE SA MERE", label[i]])
+            content.append([begin[i],  begin[i], label[i]])
     print(type(content))
     with open('result.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
