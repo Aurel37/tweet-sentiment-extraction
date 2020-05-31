@@ -53,11 +53,8 @@ def jaccard_lettres(str1, str2):
     for i in range(len(str2)):
         l2.append(str2[i])
     a = set(l1)
-    # print(a)
     b = set(l2)
-    # print(b)
     c = a.intersection(b)
-    # print(c)
     return float(len(c)) / (len(a) + len(b) - len(c))
 
 def KNN_word(chaine):
@@ -185,6 +182,6 @@ def simple_selection(chaine, original_class, nb_parties):
         parties[k] = parties[k][:-1]
         classe = KNN(parties[k])
         if classe == original_class:
-            resultat += parties[k]
-    return resultat
+            resultat += parties[k]+" "
+    return resultat[:-1]
 
