@@ -1,13 +1,20 @@
 from __future__ import absolute_import
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5d186bf5aa312eb95435ad5ce06a238bc4a980c2
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
+from utils.text_prep import clean
 
 from utils.text_prep import clean
 
 
 def make_histo(histo, title, col, xlabel, ylabel):
+    """
+    Dessine l'histogramme associé aux valeurs histo
+    """
     n, bins, patches = plt.hist(x=histo, bins=40, color=col,
                                 alpha=0.7, rwidth=0.8, range=(0, 100))
     plt.xlabel(xlabel)
@@ -151,7 +158,11 @@ def ecrire_resultat(begin, final, label):
         elif len(final[i]) > 0:
             content.append([begin[i],  final[i], label[i]])
         else:
+<<<<<<< HEAD
             content.append([begin[i], begin[i], label[i]])
+=======
+            content.append([begin[i],  begin[i], label[i]])
+>>>>>>> 5d186bf5aa312eb95435ad5ce06a238bc4a980c2
     print(type(content))
     with open('result.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
