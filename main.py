@@ -25,20 +25,20 @@ def vectorize_pca(document, column, lb, dimpca):
 #test, d = vectorize(train[0])
 #histo_repartition(test, d, N, train[-1])
 
-text_train = get_x_not_by_label('train.csv', "text", "neutral")
-text, d = vectorize(text_train)
-pauvres, histo = peu_repeter(text, d, 5)
-riches = difference(d, pauvres)
-Xtrain, riches = vectorize(text_train, riches) 
-print("vec")
-selected_text = get_x_not_by_label('train.csv', "selected_text", "neutral")
-Ytrain, riches = vectorize(selected_text, riches)
-eta = 0.0001
-lambada = 0.001
-n = 1
-SAG = SAGRegression(lambada, eta)
-print("z'est partiii")
-w, b, L = SAG.fit(Xtrain, Ytrain,epochs=n)
+#text_train = get_x_not_by_label('train.csv', "text", "neutral")
+#text, d = vectorize(text_train)
+#pauvres, histo = peu_repeter(text, d, 5)
+#riches = difference(d, pauvres)
+#Xtrain, riches = vectorize(text_train, riches) 
+#print("vec")
+#selected_text = get_x_not_by_label('train.csv', "selected_text", "neutral")
+#Ytrain, riches = vectorize(selected_text, riches)
+#eta = 0.0001
+#lambada = 0.001
+#n = 1
+#SAG = SAGRegression(lambada, eta)
+#print("z'est partiii")
+#w, b, L = SAG.fit(Xtrain, Ytrain,epochs=n)
 
 
 
@@ -64,7 +64,7 @@ def treatment(positives, negatives):
 test = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 tweets = test[0]
 labels = test[2]
-data = np.array((train, labels))
+data = np.array((tweets, labels))
 
 neutral_tweets = [] # neutral tweets
 positive_tweets = [] # positive tweets
@@ -82,7 +82,7 @@ tweets_classes = np.array((neutral_tweets, positive_tweets, negative_tweets))
 n = len(tweets_classes[0]) + len(tweets_classes[1]) + len(tweets_classes[2])
 
 # Treament of tweets : 
-# treated_list = treatment(positive_tweets, negative_tweets)
+treated_list = treatment(positive_tweets, negative_tweets)
 
 """
 selected_text = get_x_not_by_label('train.csv', "text", "neutral")
