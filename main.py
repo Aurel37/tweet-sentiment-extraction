@@ -5,6 +5,7 @@ import csv
 from utils.text_prep import vectorize, clean
 from utils.data_loader import open_csv, get_x_by_label, get_x_not_by_label
 from utils.manipulation import *
+from utils.SVM import *
 
 train = open_csv('train.csv', 'text', 'selected_text', 'sentiment')
 
@@ -25,15 +26,28 @@ def vectorize_pca(document, column, lb, dimpca):
 #test, d = vectorize(train[0])
 #histo_repartition(test, d, N, train[-1])
 
-selected_text = get_x_not_by_label('train.csv', "text", "neutral")
-test, d = vectorize(selected_text)
-print(len(d))
+text_train = get_x_not_by_label('train.csv', "text", "neutral")
+text, d = vectorize(text_train)
+pauvres, histo = peu_repeter(text, d, 5)
+riches = difference(d, pauvres)
+Xtrain, riches = vectorize(text_train, riches) 
+print("vec")
+selected_text = get_x_not_by_label('train.csv', "selected_text", "neutral")
+Ytrain, riches = vectorize(selected_text, riches)
+eta = 0.0001
+lambada = 0.001
+n = 1
+SAG = SAGRegression(lambada, eta)
+print("z'est partiii")
+w, b, L = SAG.fit(Xtrain, Ytrain,epochs=n)
 
-pauvres, histo = peu_repeter(test, d, 5)
-print(histo)
-make_histo(histo, "Histogramme des repetitions des mots de notre ensemble", "blue",
-           "Nombre de répétitions des mots", "nombre de mots concernés")
-print(len(pauvres))
+
+
+
+#print(histo)
+#make_histo(histo, "Histogramme des repetitions des mots de notre ensemble", "blue",
+#           "Nombre de répétitions des mots", "nombre de mots concernés")
+#print(len(pauvres))
 
 #riches = difference(d, pauvres)
 
