@@ -21,15 +21,19 @@ def vectorize_pca(document, column, lb, dimpca):
     text_array_pca = PCA(text_array_st, dimpca)
     return text_array_pca
 
+#N = 20
+#test, d = vectorize(train[0])
+#histo_repartition(test, d, N, train[-1])
 
-#selected_text = get_x_not_by_label('train.csv', "text", "neutral")
-#test, d = vectorize(selected_text)
-#print(len(d))
+selected_text = get_x_not_by_label('train.csv', "text", "neutral")
+test, d = vectorize(selected_text)
+print(len(d))
 
-#pauvres, histo = peu_repeter(test, d, 5)
-#print(histo[0:100])
-#make_histo(histo, "Histogramme des repetitions des mots de notre ensemble", "blue")
-#print(len(pauvres))
+pauvres, histo = peu_repeter(test, d, 5)
+print(histo)
+make_histo(histo, "Histogramme des repetitions des mots de notre ensemble", "blue",
+           "Nombre de répétitions des mots", "nombre de mots concernés")
+print(len(pauvres))
 
 #riches = difference(d, pauvres)
 
