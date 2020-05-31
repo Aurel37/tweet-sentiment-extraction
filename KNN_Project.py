@@ -94,7 +94,7 @@ def KNN_sentence(chaine):
     return np.argmax(similarites)
 
 def KNN(chaine):
-    chaine = clean(chaine)
+    # chaine = clean(chaine)
     mots = chaine.split()
     classe = 0
     if len(mots) <= 1:
@@ -142,14 +142,16 @@ def recursive_selection(chaine, original_class):
         chaine1 += mots[i]+" "
     for i in range(len(mots)//2, len(mots)):
         chaine2 += mots[i]+" "
-    a = select_emotive_part(chaine1, original_class)
-    b = select_emotive_part(chaine2, original_class)
+    chaine1 = chaine1[:-1]
+    chaine2 = chaine2[:-1]
+    a = recursive_selection(chaine1, original_class)
+    b = recursive_selection(chaine2, original_class)
     if len(a) >= len(b):
         return a
     else:
         return b
     
-def simple_selection(chaine, original_class):
+def simple_selection_bis(chaine, original_class):
     mots = chaine.split()
     if len(mots) == 1:
         return chaine
@@ -159,6 +161,8 @@ def simple_selection(chaine, original_class):
         chaine1 += mots[i]+" "
     for i in range(len(mots)//2, len(mots)):
         chaine2 += mots[i]+" "
+    chaine1 = chaine1[:-1]
+    chaine2 = chaine2[:-1]
     classe1 = KNN(chaine1)
     classe2 = KNN(chaine2)
     if classe1 != original_class and classe2 != original_class:
@@ -168,29 +172,22 @@ def simple_selection(chaine, original_class):
     else:
         return chaine2
     
-def simple_selection_bis(chaine, original_class):
+def simple_selection(chaine, original_class, nb_parties):
     mots = chaine.split()
     if len(mots) == 1:
         return chaine
-    chaine1 = ""
-    chaine2 = ""
-    chaine3 = ""
-    for i in range(len(mots)//3):
-        chaine1 += mots[i]+" "
-    for i in range(len(mots)//3, 2*len(mots)//3):
-        chaine2 += mots[i]+" "
-    for i in range(2*len(mots)//3, len(mots)):
-        chaine3 += mots[i]+" "
-    classe1 = KNN(chaine1)
-    classe2 = KNN(chaine2)
-    classe3 = KNN(chaine3)
-    if classe1 != original_class and classe2 != original_class and classe3 != original_class:
-        return chaine
-    if classe1 == original_class:
-        return chaine1
-    elif classe2 == original_class:
-        return chaine2
-    else:
-        return chaine3
+    resultat = ""
+    parties = ["" for k in range(nb_parties)]
+    for k in range(nb_parties):
+        for i in range(k*len(mots)//nb_parties, (k+1)*len(mots)//nb_parties):
+            parties[k] += mots[i]+" "
+    for k in range(nb_parties):
+        parties[k] = parties[k][:-1]
+        classe = KNN(parties[k])
+        if classe == original_class:
+            resultat += parties[k]
+    return resultat
+    
+    
 
 
