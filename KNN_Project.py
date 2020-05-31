@@ -38,8 +38,6 @@ tweets_classes = np.array((neutral_tweets, positive_tweets, negative_tweets))
 n = len(tweets_classes[0]) + len(tweets_classes[1]) + len(tweets_classes[2])
 
 def jaccard(str1, str2): 
-    if str1 == str2:
-        return float(n)
     a = set(str1.lower().split()) 
     b = set(str2.lower().split())
     c = a.intersection(b)
