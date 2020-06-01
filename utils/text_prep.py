@@ -14,11 +14,7 @@ def clean(tweet):
         clean_p = [word for word in tweet if word not in string.punctuation]
         clean_p = ''.join(clean_p)
         clean_p = clean_p.split(' ')
-<<<<<<< HEAD
-        return ' '.join([word for word in clean_p if word.lower() not in stopwords.words('english') + ['im', 'day','get','go', 'dont', "don't", 'today', 'going', 'got', 'work', 'one', "can't", 'cant', 'time', 'know', 'back', 'really', 'see', 'mothers', 'want', 'home', 'night', 'still', 'new', 'think', 'much', 'well', 'thanks', 'last', 'morning', 'need', 'tomorrow', 'this', "that", "like"]])
-=======
         return ' '.join([word for word in clean_p if word.lower() not in stopwords.words('english') +['im', 'day','get','go', 'dont', "don't", 'today', 'going', 'got', 'work', 'one', "can't", 'cant', 'time', 'know', 'back', 'really', 'see', 'mothers', 'want', 'home', 'night', 'now', "don't", 'still', 'new', 'think', 'much', 'well', 'thanks', 'last', 'morning', "you're", "you're ", 'need', 'tomorrow', 'this', "that", "like"] ])
->>>>>>> 5d186bf5aa312eb95435ad5ce06a238bc4a980c2
     else:
         return ' '
 
