@@ -56,34 +56,39 @@ def classification(document, dimpca, x_col, lb_col):
     res[0] = classify.beta
     np.savetxt('test.txt', res)
     return res
-#classification('train.csv', 25, 'text', 'selected_text')
-textraw = open_csv('train.csv', 'text', 'selected_text')
-X, Y = vectorize_pca('train.csv', 25, 'text', 'selected_text', do=False)
-X_train, Y_train = vectorize_pca('train.csv', 25, 'text', 'selected_text')
-n = len(X_train)
-m = len(X_train[0])
-classifiers = []
-big_beta = np.loadtxt('test.txt')
 
-for i in range(len(Y[0])):
-    classify = log_reg()
-    classify.beta = big_beta[i]
-    classifiers.append(classify)
+def regression():
+    """
+    Une méthode de regression, composantte par composante pour pallier au fait
+    que Y soit vectoriel
+    """
+    textraw = open_csv('train.csv', 'text', 'selected_text')
+    X, Y = vectorize_pca('train.csv', 25, 'text', 'selected_text', do=False)
+    X_train, Y_train = vectorize_pca('train.csv', 25, 'text', 'selected_text')
+    n = len(X_train)
+    m = len(X_train[0])
+    classifiers = []
+    big_beta = np.loadtxt('test.txt')
 
-text = X_train
-lb = Y_train
-pred = np.zeros((len(text), len(Y[0])))
-for i in range(len(text)):
-    res = np.zeros(len(Y[0]))
-    for j in range(len(Y[0])):
-        if classifiers[j].Pr(text[i]) > 0.5:
-            res[j] = 1
-    pred[i] = res
+    for i in range(len(Y[0])):
+        classify = log_reg()
+        classify.beta = big_beta[i]
+        classifiers.append(classify)
 
-res = build(X, pred)
-begin = slices(textraw[0])
-final = arange_string(res, begin)
-content = ecrire_resultat(textraw[0], final, textraw[-1])
+    text = X_train
+    lb = Y_train
+    pred = np.zeros((len(text), len(Y[0])))
+    for i in range(len(text)):
+        res = np.zeros(len(Y[0]))
+        for j in range(len(Y[0])):
+            if classifiers[j].Pr(text[i]) > 0.5:
+                res[j] = 1
+        pred[i] = res
+
+    res = build(X, pred)
+    begin = slices(textraw[0])
+    final = arange_string(res, begin)
+    content = ecrire_resultat(textraw[0], final, textraw[-1])
 
 
 
