@@ -1,8 +1,4 @@
-from __future__ import absolute_import
-<<<<<<< HEAD
-
-=======
->>>>>>> 5d186bf5aa312eb95435ad5ce06a238bc4a980c2
+from __future__ import absolute_import@
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
