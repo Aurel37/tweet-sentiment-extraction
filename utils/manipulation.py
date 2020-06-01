@@ -158,11 +158,7 @@ def ecrire_resultat(begin, final, label):
         elif len(final[i]) > 0:
             content.append([begin[i],  final[i], label[i]])
         else:
-<<<<<<< HEAD
             content.append([begin[i], begin[i], label[i]])
-=======
-            content.append([begin[i],  begin[i], label[i]])
->>>>>>> 5d186bf5aa312eb95435ad5ce06a238bc4a980c2
     print(type(content))
     with open('result.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
