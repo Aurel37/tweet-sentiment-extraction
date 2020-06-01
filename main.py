@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from utils.metric import jaccard
 from scipy.sparse import csr_matrix
 import csv
+import time
 
 from utils.text_prep import vectorize, clean
 from utils.data_loader import get_x_not_by_label, open_csv
@@ -50,10 +51,11 @@ def classification(document, dimpca, x_col, lb_col):
     res = np.zeros((m, dimpca+1))
     for i in range(m):
         t0 = time.time()
-        classify.fit(X_train, Y_train[:, 0])
+        classify.beta = np.zeros(dimpca+1)
+        classify.fit(X_train, Y_train[:, i])
         t1 = time.time()
         print('temps : ', t1-t0, '\r')
-    res[0] = classify.beta
+        res[i] = classify.beta
     np.savetxt('test.txt', res)
     return res
 
@@ -76,7 +78,6 @@ def regression():
         classifiers.append(classify)
 
     text = X_train
-    lb = Y_train
     pred = np.zeros((len(text), len(Y[0])))
     for i in range(len(text)):
         res = np.zeros(len(Y[0]))
@@ -88,8 +89,8 @@ def regression():
     res = build(X, pred)
     begin = slices(textraw[0])
     final = arange_string(res, begin)
-    content = ecrire_resultat(textraw[0], final, textraw[-1])
-
+    ecrire_resultat(textraw[0], final, textraw[-1])
+regression()
 
 
 
